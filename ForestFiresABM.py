@@ -1,13 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# ### <p style="text-align: right;"> &#9989; Pouria Khoushehchin.</p>
-# 
-# #### <p style="text-align: right;"> &#9989; Alder,Abraham,Het</p>
-
-# # Day 12 In-class Assignment: Modeling forest fires with an Agent-based Model 
-# 
-# <img src="https://cdn-images-1.medium.com/max/2000/1*VO9nuzrJ9XseMyxdtPh_vg.jpeg" width=500>
 
 # ## Goals of this assignment
 # 
@@ -15,12 +5,7 @@
 # 
 # * Use ABM to model forest fires
 # * Examine and quantify the concept of a "tipping point" in a model.
-# 
-# ## Assignment instructions
-# 
-# Work with your group to complete this assignment. The first part of the assignment involves working out a plan for your model on the whiteboards and taking a picture of it. This picture should be uploaded to D2L along with your notebook in the Day 12 In-Class Assignment submission folder. The assignment is due at the end of class.
-
-# ---
+#--
 # ## Reviewing the motivation for the model
 # 
 # ### Why model forest fires?
@@ -34,18 +19,6 @@
 # ### What is a "tipping point"?
 # 
 # This model also demonstrates the concept of a "critical threshold" or a "tipping point".  This is a phenomenon that occurs when a small change in an input parameter results in a large change in outcome.  This is a phenomenon that shows up in both simple and complex models, and happens in such varied circumstances as forest fires, the spread of disease in populations, and the transfer of information within a population.
-
-# ---
-# # A reminder of ABM forest fire behavior
-# 
-# As a reference, feel free to look the NetLogo version before you get started today. **DO NOT SPEND TOO MUCH TIME PLAYING WITH THIS!**
-# 
-# **Click this link to access the model**: [Web-based NetLogo Fire model](http://netlogoweb.org/launch#http://netlogoweb.org/assets/modelslib/Sample%20Models/Earth%20Science/Fire.nlogo). 
-# 
-# **Running the model:**  The only parameter that you can vary is "density", which the fraction of cells that contain trees (and thus the density of trees in the forest).  You can drag the slider back and forth to change the density.  After you do that, click the "setup" button and then click "go".
-# 
-# **What do you observe?**  Try setting the "density" value to various numbers between 0 and 99, and see how the wildfire spreads.  What happens when the value is low versus when it is high?  Is there any particular value where the behavior changes very rapidly as you change the density of trees?  If so, try to home in on that number and report it below.
-
 # ---
 # ## The rules for our model
 # 
@@ -86,11 +59,7 @@
 # 
 # Now we're going to work through a combination of provided code and code that you have to write. The goal is to have a functioning forest fire model by the end of class!
 # 
-# **Make sure to execute the following cell of imports before you move on!**
-
 # In[1]:
-
-
 # standard includes
 import numpy as np
 import numpy.random as rand
@@ -102,9 +71,8 @@ from IPython.display import display, clear_output
 import time  
 
 
-# ### First important Function: Plotting the grid!
+# ### First important Function: Plotting the grid
 # 
-# Take a look at the `plotgrid` function. You were given a similar one in your pre-class assignment. We'll be using this code a lot for displaying your forest, so we want to make sure you understand it. **Fill in the comments to explain what the code is doing.**
 
 # In[2]:
 
@@ -142,8 +110,6 @@ def plotgrid(myarray):
 
 # ### Initializing the forest
 # 
-# Before you can run a forest model, you need to initialize you board. You should have already done this in your pre-class assignment, so we're providing the following code for you. **Take a look at it and make sure you understand it. How does it compare to the code that you wrote?**
-
 # In[3]:
 
 
@@ -176,26 +142,16 @@ def set_board(board_size=50,f_trees_start=0.5):
     return game_board
 
 
-# #### Important step! Test the functions above and make sure they work! 
-# 
-# Does the fire show up in the places you want? Does the tree fraction or board size change accordingly when you change the input parameters? Would you make any modifications to plot grid that you think would improve the visualization? What happens if you make the board size much larger than the default? If can think of ways to improve `plotgrid`, feel free to make those changes! 
-
 # In[4]:
 
 
-# put your test code here. Make a plot to check it.
-# we're going to define a default figure size for you to make things look nice
 fig = plt.figure(figsize=(10,10))
 fire=set_board(50,0.6)
 plotgrid(fire)
 
 
 # ## The main event: make the fire spread!
-# 
-# Clearly the most import part of an agent-based model is figuring out how your agents should behave in your simulation. In this model, the main agent you have to deal with is the fire. Your job is to write the function that controls how the fire moves. The skeleton function provided below takes in the current board, defines a new board, and then returns that new board where the positions of the fire have been updated. The function contains comments to suggest the steps that you need to implement to make it work. **Work with your group to make this function functional!** 
-# 
-# To avoid needless scrolling here are the rules of the model again:
-# 
+#  
 # > Each cell has a "neighborhood" that is composed of its four neighbors to the left, right, above, and below it.  (Note: not the diagonal elements!)  If a cell is along one of the edges of the array, only consider the neighbors that it has, and don't try to go out of the bounds of the array!
 # 
 # >The model takes steps forward in time, where every cell is modified based on the previous step.  The model evolves as follows:
@@ -271,9 +227,6 @@ def advance_board(game_board):
     return new_board
 
 
-# #### As good coders, we always test our new functions! Test your function above and make sure it works! 
-# 
-# Run the code a few times to see whether fire advances according to the rules. You can start with any sort of initial board that you want, you can even just use the default board for the purpose of testing.
 
 # In[7]:
 
@@ -284,19 +237,12 @@ p=advance_board(fire)
 
 # In[12]:
 
-
-# Test your new advance_board function here. Make a plot to check it. 
-# Run this cell several times to make sure the fire continues to advance.
-
-# Again, we set the figure size for you
 fig = plt.figure(figsize=(10,10))
 plotgrid(p)
 
 
 # ## Analyzing the state of the board
 # 
-# As we run our model, we want to know what fraction of the board is empty and what fraction is covered with trees. You need to add code to compute these values. A bit of skeleton code is provided for you to help guide your coding efforts.
-
 # In[13]:
 
 
@@ -329,9 +275,7 @@ def calc_stats(game_board):
 
 
 # ### Putting it all together!
-# 
-# The following code takes all of the above functions and puts them in order along with some animation code so that you can see your fire spread. If your functions above were written correctly, this could should *just work*. **Comment the code to indicate that you know what its doing!**
-
+#
 # In[16]:
 
 
@@ -375,22 +319,6 @@ while on_fire == True:
 plt.close()               
 
 
-# #### Follow up task:
-# Demonstrate that it works on a model board 50 cells on a side for a few values of $f_\text{trees_start}$; say, 0.25, 0.5, 0.75, and 1.0.  
-
-# ####  Question:
-# Do you notice any differences in behavior as you change $f_\text{trees_start}$? Put down your answer in the cell below.
-
-# As the ftree start increases more trees get burned
-
-# 
-# ### Stage 3: Finding the tipping point 
-# 
-# In order to find the tipping point, i.e. the point at which the fire spreads much more substantially, we want to loop over many values of $f_\text{trees_start}$ (say, values from 0.01 to 1.0, in steps of 0.01) and run the model many times.  If we keep track of the fraction of cells that are burned for each starting condition, we can show how $f_\text{burned}$ and $f_\text{trees_start}$ relate to each other. 
-# 
-# 
-
-# **The code below is incomplete, fill the missing code to below to make a plot to observe where the tipping point occurs**
 
 # In[ ]:
 
@@ -425,28 +353,3 @@ plt.xlabel("tree fraction")
 plt.ylabel("burned fraction (normalized)")
 
 
-# #### Follow up task:
-# 
-# Describe the model's behavior.  Do you observe a "tipping point" in $f_\text{burned}$? That is, is there an abrupt change in behavior in $f_\text{burned}$ as you increase $f_\text{trees_start}$?  Does it agree with what you saw when you were experimenting with the NetLogo model?
-
-# *put your answer here!*
-# Yes at some point fire starts to spread more. It does agree with the NetLogo model
-
-# ---
-# ### Exploring new initial conditions
-# 
-# So far, we have been setting up fire from the edge of the forest. If you set the fire in the middle row of the forest, does this change the where the tipping point occurs? (Copy and modify the code below and also put down your observations in a Markdown cell.)
-
-# ---
-# ### If time allows...
-# 
-# Brainstorm with your group (and Google) what this agent-based models may be good for (other than forest fires). Write down your answer in a Markdown cell below. 
-
-# ---
-# 
-
-# ## Congratulations, you're done!
-# 
-# Submit this assignment by uploading your notebook and the pictures of your model planning session to the course Desire2Learn web page.  Go to the "In-Class Assignments" folder, find the submission link for Day 12, and upload everything there. Make sure your name is on it!
-
-# &#169; Copyright 2018,  Michigan State University Board of Trustees
